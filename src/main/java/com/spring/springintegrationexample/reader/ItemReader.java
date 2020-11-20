@@ -51,8 +51,6 @@ public class ItemReader {
                 Node itemNode = nodeList.item(i);
                 if (itemNode.getNodeType() == Node.ELEMENT_NODE && "item".equalsIgnoreCase(itemNode.getNodeName())) {
                     Item item = getItem(itemNode);
-                    ItemKey itemKey = getItemKey(item);
-                    item.setKey(itemKey);
                     items.add(item);
                 }
             }
@@ -61,18 +59,6 @@ public class ItemReader {
             throw new ResourceReadErrorException("error while reading resource");
         }
         return items;
-    }
-
-    private ItemKey getItemKey(Item item) {
-        ItemKey itemKey = new ItemKey();
-        try {
-            itemKey.setFormattedDate(DateConverterUtils.getFormattedDate(item.getPubDate()));
-        } catch (ParseException e) {
-            LOGGER.error("error while parsing the date: {}, {}", item.getPubDate(), e.toString(), e);
-            throw new InvalidDateInputException("input date may be not valid");
-        }
-        itemKey.setCategory(item.getCategory());
-        return itemKey;
     }
 
     private Item getItem(Node nNode) {
