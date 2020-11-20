@@ -5,13 +5,11 @@ import com.spring.springintegrationexample.model.xml.Guid;
 import com.spring.springintegrationexample.model.xml.ItemXml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -42,8 +40,8 @@ public class XmlWriterTask implements Runnable {
                 if (!file.exists())
                     file.mkdirs();
                 String xmlFilePath = file.getAbsolutePath() + "/" + UUID.randomUUID().toString() + ".xml";
-                LOGGER.info("writing to path: {} for key: {}", xmlFilePath, item.getKey().getHash());
                 writeItemXml(itemXml, xmlFilePath);
+                LOGGER.info("item link: {}, path: {}",itemXml.link, xmlFilePath);
             } catch (JAXBException | IOException e) {
                 LOGGER.error("error while writing to xml file: {}", e.toString(), e);
             }
