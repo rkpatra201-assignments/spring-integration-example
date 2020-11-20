@@ -53,6 +53,7 @@ public class ItemReader {
                     Item item = getItem(itemNode);
                     ItemKey itemKey = getItemKey(item);
                     item.setKey(itemKey);
+                    items.add(item);
                 }
             }
         } catch (ParserConfigurationException | IOException | XPathExpressionException e) {
