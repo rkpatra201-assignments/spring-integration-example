@@ -41,7 +41,7 @@ public class XmlWriterTask implements Runnable {
                     file.mkdirs();
                 String xmlFilePath = file.getAbsolutePath() + "/" + UUID.randomUUID().toString() + ".xml";
                 writeItemXml(itemXml, xmlFilePath);
-                LOGGER.info("item link: {}, path: {}",itemXml.link, xmlFilePath);
+                LOGGER.info("item link: {}",itemXml.link);
             } catch (JAXBException | IOException e) {
                 LOGGER.error("error while writing to xml file: {}", e.toString(), e);
             }
