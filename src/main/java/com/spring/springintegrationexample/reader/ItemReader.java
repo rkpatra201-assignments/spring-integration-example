@@ -1,11 +1,8 @@
 package com.spring.springintegrationexample.reader;
 
 import com.spring.springintegrationexample.constants.AppConstants;
-import com.spring.springintegrationexample.exception.InvalidDateInputException;
 import com.spring.springintegrationexample.exception.ResourceReadErrorException;
 import com.spring.springintegrationexample.model.Item;
-import com.spring.springintegrationexample.model.ItemKey;
-import com.spring.springintegrationexample.utils.DateConverterUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -23,7 +20,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +40,12 @@ public class ItemReader {
 
             XPath xPath = XPathFactory.newInstance().newXPath();
 
-            NodeList nodeList = (NodeList) xPath.compile(AppConstants.expression).evaluate(
+            NodeList nodeList = (NodeList) xPath.compile(AppConstants.ITEM_X_PATH_EXPRESSION).evaluate(
                     doc, XPathConstants.NODESET);
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node itemNode = nodeList.item(i);
-                if (itemNode.getNodeType() == Node.ELEMENT_NODE && "item".equalsIgnoreCase(itemNode.getNodeName())) {
+                if (itemNode.getNodeType() == Node.ELEMENT_NODE && AppConstants.ITEM_NODE_NAME.equalsIgnoreCase(itemNode.getNodeName())) {
                     Item item = getItem(itemNode);
                     items.add(item);
                 }

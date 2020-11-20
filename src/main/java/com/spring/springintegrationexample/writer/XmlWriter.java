@@ -18,9 +18,12 @@ public class XmlWriter {
     @Value("${item_xml_base_path}")
     private String itemXmlBasePath;
 
+    @Value("${xml_writer_thread_count:2}")
+    private int threadCount;
+
     @PostConstruct
     public void init() {
-        executorService = Executors.newFixedThreadPool(5); // can be configured in properties
+        executorService = Executors.newFixedThreadPool(threadCount); // can be configured in properties
     }
 
     public void write(List<Item> item) {
