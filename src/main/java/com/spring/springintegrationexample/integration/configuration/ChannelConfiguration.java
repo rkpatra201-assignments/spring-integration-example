@@ -3,6 +3,7 @@ package com.spring.springintegrationexample.integration.configuration;
 import com.spring.springintegrationexample.integration.transformer.ItemMessageTransformer;
 import com.spring.springintegrationexample.model.Item;
 import com.spring.springintegrationexample.utils.ItemUtils;
+import com.spring.springintegrationexample.writer.XmlWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +124,8 @@ public class ChannelConfiguration {
         return simpleMessageStore;
     }
 
+    @Autowired
+    private XmlWriter xmlWriter;
     @Bean
     @ServiceActivator(inputChannel = "response.message.aggregator.channel")
     public MessageHandler aggregateableOutputMessageHandler() {
@@ -130,8 +133,9 @@ public class ChannelConfiguration {
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 // todo: writer
-                List payLoadList = ((ArrayList) message.getPayload());
+                List<Item> payLoadList = ((ArrayList) message.getPayload());
                 LOGGER.info("aggregate Payload size: {}, Payload: {}",  payLoadList.size(), payLoadList);
+                xmlWriter.write(payLoadList);
             }
         };
     }
