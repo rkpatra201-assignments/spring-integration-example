@@ -26,7 +26,10 @@ public class ItemKey implements Serializable {
 }
     
 ```
-We have added ItemKey into the Item so that we can aggregate the messages based upon `date` and `category`.
+* The rss-feed.xml is located at project base dorectory but also can be read using http client.
+* The rss-feed.xml contains the raw xml messages from where we are extracting the items by using xpath.
+* We have added ItemKey into the Item so that we can aggregate the messages based upon `date` and `category`.
+* Also We have used JAXB marshalling while writing the POJO as XML into a file.
 
 ## setup version:
 
